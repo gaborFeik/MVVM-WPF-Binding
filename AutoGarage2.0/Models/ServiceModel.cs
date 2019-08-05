@@ -8,8 +8,9 @@ namespace AutoGarage2._0.Models
 {
    public class ServiceModel
     {
-        public int ServiceId { get; set; }
+        public int Id { get; set; }
         public string Description { get; set; }
         public double Cost { get; set; }
+        public virtual OrderModel OrderModel { get; set; }
     }
 }

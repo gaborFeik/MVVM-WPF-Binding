@@ -1,4 +1,5 @@
-﻿using AutoGarage2._0.Models;
+﻿using AutoGarage2._0.Helper;
+using AutoGarage2._0.Models;
 using Caliburn.Micro;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace AutoGarage2._0.ViewModels
 {
-   public class ListOrderViewModel : Screen
+    public class ListOrderViewModel : Screen
     {
         private BindableCollection<OrderModel> _listOrders = new BindableCollection<OrderModel>();
 
@@ -17,29 +18,35 @@ namespace AutoGarage2._0.ViewModels
         /// </summary>
         public ListOrderViewModel()
         {
-            List<ServiceModel> serviceModels = new List<ServiceModel>();
-            serviceModels.Add(  new ServiceModel{Cost=50, Description= "Brake",ServiceId = 1 });
-            serviceModels.Add(  new ServiceModel{Cost=150, Description= "Fluid",ServiceId = 2 });
-            List<ServiceModel> serviceModels2 = new List<ServiceModel>();
-            serviceModels2.Add(new ServiceModel { Cost = 500, Description = "Motor", ServiceId = 1 });
-            serviceModels2.Add(new ServiceModel { Cost = 1500, Description = "Element", ServiceId = 2 });
-            ListOrders.Add(new OrderModel
+            // TestData
+            for (int i = 0; i < 50; i++)
             {
-                CustomerId = 1,
-                InvoiceNumber = 2345667,
-                OrderId = 1,
-                OrderTime = DateTime.Now,
-                OrderServices = serviceModels
-            } );
-            ListOrders.Add(new OrderModel
-            {
-                CustomerId = 2,
-                InvoiceNumber = 2345667,
-                OrderId = 2,
-                OrderTime = DateTime.Now,
-                OrderServices = serviceModels2
-            });
+                ListOrders.Add(new OrderModel
+                {
+                    CustomerModel = new CustomerModel { FirstName="Son", LastName="Goku"},
+                    InvoiceNumber =  new InvoiceGenerator().GenerateInvoice(),
+                    Id = 1,
+                    OrderTime = DateTime.Now,
+                    TaxAble = false,
+                    ServiceModels = new List<ServiceModel> { new ServiceModel { Cost= 25+i, Description="TestRecord"+ i}, new ServiceModel { Cost = 25 + i*2, Description = "TestRecord" + i*3 } }
+
+                });
+            }
+
+       //     FListOrders = ListOrders;
+
         }
+        //private BindableCollection<OrderModel> _fListOrders = new BindableCollection<OrderModel>();
+
+        //public BindableCollection<OrderModel> FListOrders
+        //{
+        //    get { return FListOrders; }
+        //    set {
+        //        FListOrders = value;
+        //        NotifyOfPropertyChange(() => FListOrders);
+        //    }
+        //}
+
 
         //Binding collectiong for List orders
         public BindableCollection<OrderModel> ListOrders
@@ -51,5 +58,18 @@ namespace AutoGarage2._0.ViewModels
                 NotifyOfPropertyChange(() => ListOrders);
             }
         }
+
+        // Binding model for selected item from collection
+        private OrderModel _selectedOrder;
+
+        public OrderModel SelectedOrder
+        {
+            get { return _selectedOrder; }
+            set {
+                _selectedOrder = value;
+                NotifyOfPropertyChange(() => SelectedOrder);
+            }
+        }
+
     }
 }

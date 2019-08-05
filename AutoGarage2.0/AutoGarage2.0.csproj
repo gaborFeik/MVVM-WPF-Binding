@@ -76,6 +76,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataFramework\Repository\ICustomerRepository.cs" />
+    <Compile Include="DataFramework\Repository\IOrderRepository.cs" />
+    <Compile Include="DataFramework\Repository\IRepository.cs" />
     <Compile Include="Helper\InvoiceGenerator.cs" />
     <Compile Include="Helper\InvoicePdfConverter.cs" />
     <Compile Include="Models\CustomerModel.cs" />
@@ -130,7 +132,9 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Assets\auto-logo_73313-24.jpg" />
+  </ItemGroup>
   <ItemGroup>
     <Page Include="Views\CustomerView.xaml">
       <SubType>Designer</SubType>

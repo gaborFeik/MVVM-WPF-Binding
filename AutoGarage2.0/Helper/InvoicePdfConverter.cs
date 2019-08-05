@@ -60,12 +60,15 @@ namespace AutoGarage2._0.Helper
                     cb.SetFontAndSize(f_cn, 12);
                     cb.SetTextMatrix(100, 100); // Left, Top  
                     cb.ShowTextAligned(PdfContentByte.ALIGN_CENTER, "Template Company", 120, 740, 0);
-                    cb.EndText();
-                    //iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance("auto-logo_73313-24.jpg");
-                    //img.SetAbsolutePosition(50, 750);
-                    //img.ScaleAbsolute(25, 25);
-                    //img.ScalePercent(25);
-                    //cb.AddImage(img);
+                    cb.EndText();                   
+                    var currentDirectory = Directory.GetCurrentDirectory();
+                    var assetsPath = Path.GetFullPath(Path.Combine(currentDirectory, @"..\\..\\Assets\\"));
+                    var LogoPath = Path.Combine(assetsPath, "auto-logo_73313-24.jpg");
+                    iTextSharp.text.Image img = iTextSharp.text.Image.GetInstance(LogoPath);
+                    img.SetAbsolutePosition(50, 750);
+                    img.ScaleAbsolute(25, 25);
+                    img.ScalePercent(25);
+                    cb.AddImage(img);
                     cb.BeginText();
                     cb.SetFontAndSize(f_cn, 12);
                     cb.SetTextMatrix(100, 100); // Left, Top  

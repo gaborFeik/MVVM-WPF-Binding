@@ -13,12 +13,6 @@
             <ColumnDefinition Width="10"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="10"/>
         </Grid.ColumnDefinitions>
@@ -26,31 +20,26 @@
             <RowDefinition Height="10"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
-            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         
-    <!--Row 1-->
-        <DataGrid ItemsSource="{Binding Path=ListOrders}" Grid.Column="1" Grid.Row="2" AutoGenerateColumns="False" AlternatingRowBackground="Gray" >
+    <!--Row 3-->
+        <DataGrid x:Name="ListOrders" Grid.Column="1" Grid.Row="3" AutoGenerateColumns="False" AlternatingRowBackground="Gray" SelectedItem="{Binding Path=SelectedOrder}" CanUserAddRows="False" HorizontalScrollBarVisibility="Auto">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Factuur Nummer" Binding="{Binding Path=InvoiceNumber}"/>
-                <DataGridTextColumn Header="Order Time" Binding="{Binding Path=OrderTime}"/>
-                <DataGridTextColumn Header="Customer Id" Binding="{Binding Path=CustomerId}"/>
+                <DataGridTextColumn Header="Order Time" Binding="{Binding Path=OrderTime, StringFormat=d}"/>
+                <DataGridTextColumn Header="Customer Name" Binding="{Binding Path=CustomerModel.FullName}" />
                 <DataGridTemplateColumn Header="Services" MinWidth="100">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <ComboBox ItemsSource="{Binding Path=OrderServices}" >
+                            <ComboBox ItemsSource="{Binding Path=ServiceModels}" >
                                 <ComboBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Horizontal">
-                                            <TextBlock Text="{Binding Description}"/>
+                                            <TextBox Text="{Binding Description}"/>
                                             <TextBlock Text=" "/>
-                                            <TextBlock Text="{Binding Cost}"/>
+                                            <TextBox Text="{Binding Cost}"/>
                                             <TextBlock Text="€"/>
                                         </StackPanel>
                                     </DataTemplate>
@@ -61,5 +50,8 @@
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
+        <Button x:Name="ExportOrdersPdf" Grid.Column="3" Grid.Row="2">
+            Change
+        </Button>
     </Grid>
 </UserControl>

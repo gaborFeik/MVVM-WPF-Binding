@@ -6,12 +6,13 @@ using System.Threading.Tasks;
 
 namespace AutoGarage2._0.Helper
 {
-   static class InvoiceGenerator
+   public class InvoiceGenerator
     {
+        
         /// <summary>
         /// Static method for generating Invoice logic
         /// </summary>
-        public static int GenerateInvoice()
+        public  int GenerateInvoice()
         {
             Random random = new Random();
             var date = DateTime.Now.ToString("yyyyMMdd") + random.Next(10, 99);

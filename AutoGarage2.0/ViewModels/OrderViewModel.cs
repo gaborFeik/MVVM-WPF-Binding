@@ -14,7 +14,7 @@ namespace AutoGarage2._0.ViewModels
         
         // Setting private fields for the bind properties
         private int _orderId;
-        private int _invoiceNumber = InvoiceGenerator.GenerateInvoice();
+        private int _invoiceNumber = new InvoiceGenerator().GenerateInvoice();
         private DateTime _orderTime = DateTime.Now;
         private bool _taxAble;
         private int _customerId;
@@ -23,7 +23,7 @@ namespace AutoGarage2._0.ViewModels
         private BindableCollection<CustomerModel> _fCustomers = new BindableCollection<CustomerModel>();
         private BindableCollection<CustomerModel> _customerRepository = new BindableCollection<CustomerModel>();
         private ServiceModel _service = new ServiceModel();
-        private CustomerModel _selectedCustomer;
+        private CustomerModel _selectedCustomer = new CustomerModel();
         private ServiceModel _selectedService;
 
         /// <summary>
@@ -98,6 +98,7 @@ namespace AutoGarage2._0.ViewModels
             {
                 _orderServices = value;
                 NotifyOfPropertyChange(() => OrderServices);
+
             }
         }
 
@@ -169,6 +170,10 @@ namespace AutoGarage2._0.ViewModels
             {
                 _selectedCustomer = value;
                 NotifyOfPropertyChange(() => SelectedCustomer);
+                NotifyOfPropertyChange(() => CanExportPdf);
+                NotifyOfPropertyChange(() => CanAddOrder);
+                
+
             }
         }
 
@@ -202,6 +207,11 @@ namespace AutoGarage2._0.ViewModels
          public void AddService(double service_Cost,string service_Description)
         {
             OrderServices.Add(new ServiceModel { Description = service_Description, Cost = service_Cost });
+            NotifyOfPropertyChange(() => OrderServices);
+            NotifyOfPropertyChange(() => CanExportPdf);
+            NotifyOfPropertyChange(() => CanAddOrder);
+
+
         }
 
         // Remove the bound SelectedService object from the Service list
@@ -209,6 +219,20 @@ namespace AutoGarage2._0.ViewModels
         public void RemoveService()
         {
             OrderServices.Remove(SelectedService);
+            NotifyOfPropertyChange(() => CanExportPdf);
+            NotifyOfPropertyChange(() => CanAddOrder);
+        }
+
+        public bool CanAddOrder
+        {
+            get
+            {
+                if (OrderServices.Count > 0 && SelectedCustomer.FullName != "")
+                {
+                    return true;
+                }
+                return false;
+            }
         }
 
         // Call repository to AddOrder Method
@@ -218,9 +242,20 @@ namespace AutoGarage2._0.ViewModels
 
         }
 
-        // Calling static export class
+        // Calling can execute static export class
+        public bool CanExportPdf
+        {
+            get{
+                if (OrderServices.Count > 0 && SelectedCustomer.FullName != "")
+                {
+                    return true;
+                }
+                return false;
+            }
+        }
 
-        public void ExportPdf()
+        // Calling static export class
+        public void ExportPdf( )
         {
             InvoicePdfConverter.PdfExport(this);
         }

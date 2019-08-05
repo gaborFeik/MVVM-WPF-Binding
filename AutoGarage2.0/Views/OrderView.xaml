@@ -68,9 +68,9 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="{Binding Description}"/>
+                        <TextBox Text="{Binding Description}"/>
                         <TextBlock Text=" "/>
-                        <TextBlock Text="{Binding Cost}"/>
+                        <TextBox Text="{Binding Cost}"/>
                         <TextBlock Text="€"/>
                     </StackPanel>
                 </DataTemplate>

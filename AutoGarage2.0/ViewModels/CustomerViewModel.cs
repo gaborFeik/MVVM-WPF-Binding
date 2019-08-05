@@ -12,15 +12,17 @@ namespace AutoGarage2._0.ViewModels
     {
         private string _firstName;
         private string _lastName;
-        private int _phoneNumber ;
+        private decimal _phoneNumber ;
         private string _street;
         private string _houseNumber;
         private string _postcode;
         private string _city;
 
-        /// <summary>
-        /// Bound properties for creating a new Customer 
-        /// </summary>
+        public CustomerViewModel()
+        { Customers.Add(new CustomerModel { Id = 1, City = "asd", HouseNumber = "", PhoneNumber = 55, Postcode = "23", Street = "", FirstName = "Gabor", LastName = "Feik" }); ;
+            Customers.Add(new CustomerModel { FirstName = "Ariel", LastName = "Kujawa" });
+            Customers.Add(new CustomerModel { FirstName = "Tamas", LastName = "Czuprak" });
+        }
 
         public string City
         {
@@ -64,7 +66,7 @@ namespace AutoGarage2._0.ViewModels
             }
         }
 
-        public int PhoneNumber
+        public decimal PhoneNumber
         {
             get { return _phoneNumber; }
             set
@@ -96,24 +98,41 @@ namespace AutoGarage2._0.ViewModels
                 NotifyOfPropertyChange(() => FullName);
             }
         }
-        // Get full name from FirstName and LastName property
+
         public string FullName
         {
             get { return $"{FirstName} {LastName}"; }
         }
+        private BindableCollection<CustomerModel> _customers = new BindableCollection<CustomerModel>();
 
-        // Boolean linked method for enabling AddCustomer button
-        public bool CanAddCustomer(string firstName, string lastName, int phoneNumber, string street, string houseNumber, string postcode, string city)
+        public BindableCollection<CustomerModel> Customers
         {
+            get { return _customers; }
+            set { _customers = value; }
+        }
+
+        private CustomerModel _selectedCustomer;
+        public CustomerModel SelectedCustomer
+        {
+            get { return _selectedCustomer; }
+            set {
+                _selectedCustomer = value;
+                NotifyOfPropertyChange(() => SelectedCustomer);
+            }
+        }
+        public object ActivateItem { get; private set; }
+
+        public bool CanAddClient(string firstName, string lastName, int phoneNumber, string street, string houseNumber, string postcode, string city)
+        {
+            
             return
                 !String.IsNullOrWhiteSpace(firstName) && !String.IsNullOrWhiteSpace(lastName) &&
-                !String.IsNullOrWhiteSpace(phoneNumber.ToString()) && !String.IsNullOrWhiteSpace(street) &&
+                phoneNumber >= 1 && phoneNumber.ToString().Length >= 9 && !String.IsNullOrWhiteSpace(street) &&
                 !String.IsNullOrWhiteSpace(houseNumber) && !String.IsNullOrWhiteSpace(postcode) &&
                 !String.IsNullOrWhiteSpace(city);
         }
 
-        //  Method to add new  Customer and set empty properties
-        public void AddCustomer(string firstName, string lastName, int phoneNumber, string street, string houseNumber, string postcode, string city)
+        public void AddClient(string firstName, string lastName, int phoneNumber, string street, string houseNumber, string postcode, string city)
         {
             FirstName = "";
             LastName = "";

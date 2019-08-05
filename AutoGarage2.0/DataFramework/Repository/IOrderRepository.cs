@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace AutoGarage2._0.DataFramework.Repository
 {
-    public interface ICustomerRepository : IRepository
+   public interface IOrderRepository : IRepository
     {
+
     }
 }

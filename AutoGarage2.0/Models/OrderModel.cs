@@ -8,11 +8,12 @@ namespace AutoGarage2._0.Models
 {
   public  class OrderModel
     {
-        public int OrderId { get; set; }
+        public int Id { get; set; }
         public int InvoiceNumber { get; set; }
         public DateTime OrderTime { get; set; }
-        public int CustomerId { get; set; }
-        public List<ServiceModel> OrderServices { get; set; }
+        public bool TaxAble { get; set; }
+        public virtual ICollection<ServiceModel> ServiceModels { get; set; }
+        public virtual CustomerModel CustomerModel { get; set; }
 
     }
 }

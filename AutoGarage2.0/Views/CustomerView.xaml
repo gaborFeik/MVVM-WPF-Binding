@@ -55,7 +55,7 @@
         <TextBox x:Name="City" MinWidth="75" Grid.Column="8" Grid.Row="3" Margin="10"/>
         
         <!--Row 4-->
-        <Button x:Name="AddCustomer" Grid.Column="8" Grid.Row="4" Margin="10" >Verder
+        <Button x:Name="AddClient" Grid.Column="8" Grid.Row="4" Margin="10" >Verder
             <Button.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="0"/>
